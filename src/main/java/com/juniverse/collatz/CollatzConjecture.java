@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import java.util.logging.Logger;
 /**
  * Conjetura de Collatz: partiendo de cualquier entero positivo, si n es par se divide entre 2 y si es impar
  * se calcula 3n + 1; la conjetura afirma que siempre se llega a 1.
@@ -14,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author linux
  */
 public final class CollatzConjecture {
+    private static final Logger LOGGER = AppLogger.get(CollatzConjecture.class);
+
 
     private static final ConcurrentHashMap<BigInteger, Boolean> memoizationMap = new ConcurrentHashMap<>();
 
@@ -77,19 +80,21 @@ public final class CollatzConjecture {
      * @throws ArithmeticException si algún valor desborda un long
      */
     public static int showCollatzSequence(long n) {
-        int cont = 0;
+        int count = 0;
         if (n <= 0) {
             throw new IllegalArgumentException("Value  " + n + " is not valid");
         }
-        System.out.print("Sequence for " + n + " => ");
+        // El logger siempre cierra la línea: la secuencia se arma completa y se registra de una vez
+        StringBuilder sequence = new StringBuilder("Sequence for " + n + " => ");
         while (n != 1) {
-            System.out.print(n + " ");
+            sequence.append(n).append(' ');
             n = collatzStep(n); // lanza ArithmeticException si 3n+1 desborda un long
-            cont++;
+            count++;
         }
-        // Imprimir 1 al final de la secuencia
-        System.out.println(1);
-        return cont;
+        // Agregar 1 al final de la secuencia
+        sequence.append(1);
+        LOGGER.info(sequence.toString());
+        return count;
     }
 
     /**

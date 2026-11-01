@@ -16,12 +16,15 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import java.util.logging.Logger;
 /**
  * Ventana con una gráfica (JFreeChart) de la secuencia de Collatz de varios números iniciales.
  *
  * @author ajuar
  */
 public class CollatzGraphic extends JFrame {
+    private static final Logger LOGGER = AppLogger.get(CollatzGraphic.class);
+
 
     /**
      * Crea la ventana con una serie por cada número inicial.
@@ -59,8 +62,8 @@ public class CollatzGraphic extends JFrame {
         }
         renderer.setDefaultToolTipGenerator((CategoryDataset categoryDataset, int row, int column) -> {
             Number value = categoryDataset.getValue(row, column);
-            String paso = (String) categoryDataset.getColumnKey(column);
-            return "Valor: " + value.intValue() + " - Paso: " + paso;
+            String step = (String) categoryDataset.getColumnKey(column);
+            return "Valor: " + value.intValue() + " - Paso: " + step;
         });
 
         plot.setRenderer(renderer);
@@ -80,7 +83,7 @@ public class CollatzGraphic extends JFrame {
             Random random = new Random();
             for (int i = 1; i <= 2; i++) {
                 int value = random.nextInt(10, 100);
-                System.out.println("Value: " + value);
+                LOGGER.info("Value: " + value);
                 numbers.add(new BigInteger(String.valueOf(value)));
             }
             CollatzGraphic frame = new CollatzGraphic(numbers);

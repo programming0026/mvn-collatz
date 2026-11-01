@@ -41,6 +41,24 @@ java -jar target/mvn-collatz-1.0.0-SNAPSHOT-launcher.jar
 
 El archivo `-launcher.jar` incluye todas las dependencias.
 
+## Estructura
+
+```text
+src/main/java/com/juniverse/collatz/
+├── Main.java                  # arranque
+├── CollatzDemos.java          # las cuatro demostraciones
+├── CollatzConjecture.java     # reglas y secuencias
+├── CollatzCycleDetector.java, CollatzCounterExampleSearcher.java, InverseCollatzTree.java
+├── SearchReport.java          # presenta e interpreta los resultados de la búsqueda
+└── dto/                       # CycleResult, SearchResult, TreeNode
+```
+
+## Pruebas
+
+```bash
+mvn test
+```
+
 ## Licencia
 
 Código de ejemplo de uso libre con fines educativos.

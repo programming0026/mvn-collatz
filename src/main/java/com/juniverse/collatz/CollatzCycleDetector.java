@@ -8,12 +8,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import java.util.logging.Logger;
 /**
  * Detecta ciclos en la secuencia de Collatz con el algoritmo de la tortuga y la liebre de Floyd.
  *
  * @author ajuar
  */
 public class CollatzCycleDetector {
+    private static final Logger LOGGER = AppLogger.get(CollatzCycleDetector.class);
+
 
     private static final long MAX_ITERATIONS = 10_000L;
     private static final long MAX_VALUE_THRESHOLD = 1_000_000_000L;
@@ -61,7 +64,7 @@ public class CollatzCycleDetector {
                 }
 
             } catch (ArithmeticException e) {
-                System.err.println("Overflow detected for number: " + startNumber);
+                LOGGER.severe("Overflow detected for number: " + startNumber);
                 return CycleResult.noCycle(startNumber, iterations, maxValue);
             }
 
@@ -111,19 +114,19 @@ public class CollatzCycleDetector {
 
                             // Posible contraejemplo encontrado
                             if (result.foundCycle()) {
-                                System.out.println("¡CYCLE FOUND!");
-                                System.out.println("Initial number: " + number);
-                                System.out.println("Cycle: " + result.cycle());
+                                LOGGER.info("¡CYCLE FOUND!");
+                                LOGGER.info("Initial number: " + number);
+                                LOGGER.info("Cycle: " + result.cycle());
                             }
                         }
 
                         if (number % 10_000 == 0) {
-                            System.out.printf("Verified up to: %,d (Maximum value seen: %,d)%n",
-                                    number, result.maxValue());
+                            LOGGER.info(String.format("Verified up to: %,d (Maximum value seen: %,d)",
+                                    number, result.maxValue()));
                         }
 
                     } catch (Exception e) {
-                        System.err.println("Error processing " + number + ": " + e.getMessage());
+                        LOGGER.severe("Error processing " + number + ": " + e.getMessage());
                     }
                 }));
             }
@@ -132,7 +135,7 @@ public class CollatzCycleDetector {
                 try {
                     future.get();
                 } catch (InterruptedException | ExecutionException e) {
-                    System.err.println("Error in execution: " + e.getMessage());
+                    LOGGER.severe("Error in execution: " + e.getMessage());
                 }
             }
         }

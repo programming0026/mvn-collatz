@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import java.util.logging.Logger;
 /**
  * Busca contraejemplos de la conjetura de Collatz combinando candidatos especiales, el árbol inverso
  * y la detección de ciclos con hilos virtuales.
@@ -25,6 +26,8 @@ import java.util.concurrent.Future;
  * @author ajuar
  */
 public class CollatzCounterExampleSearcher implements Closeable{
+    private static final Logger LOGGER = AppLogger.get(CollatzCounterExampleSearcher.class);
+
     private final ExecutorService executor;
     private final long maxSearchValue;
     private final int maxTreeDepth;
@@ -47,33 +50,33 @@ public class CollatzCounterExampleSearcher implements Closeable{
      */
     public SearchResult searchForCounterexamples() {
         Instant startTime = Instant.now();
-        System.out.println("Starting a comprehensive search for counterexamples...");
+        LOGGER.info("Starting a comprehensive search for counterexamples...");
         
       
-        System.out.println("Generating special candidates...");
+        LOGGER.info("Generating special candidates...");
         List<Long> specialCandidates = CandidateGenerator.generateAllCandidates(maxSearchValue);
-        System.out.printf("Generated %,d special candidates%n", specialCandidates.size());
+        LOGGER.info(String.format("Generated %,d special candidates", specialCandidates.size()));
       
         
-        System.out.println("Building inverse Collatz tree...");
+        LOGGER.info("Building inverse Collatz tree...");
         InverseCollatzTree tree = new InverseCollatzTree(maxTreeDepth, maxSearchValue);
         Set<Long> treeNumbers = tree.buildTreeParallel();
-        System.out.printf("Tree contains %,d numbers%n", treeNumbers.size());
+        LOGGER.info(String.format("Tree contains %,d numbers", treeNumbers.size()));
        
       
-        System.out.println("Searching for missing numbers in the tree...");
+        LOGGER.info("Searching for missing numbers in the tree...");
         List<Long> notInTree = tree.findMissingNumbers(1, Math.min(maxSearchValue, 100_000));
-        System.out.printf("Found %,d numbers outside the tree%n", notInTree.size());
+        LOGGER.info(String.format("Found %,d numbers outside the tree", notInTree.size()));
 
         // Estar fuera del árbol NO es un contraejemplo: el árbol solo contiene valores <= maxSearchValue y muchas
         // secuencias suben más que eso antes de bajar a 1. Cada número se comprueba directamente (BigInteger).
         List<Long> missingNumbers = notInTree.stream()
                 .filter(n -> !CollatzConjecture.isCollatzSequence(BigInteger.valueOf(n)))
                 .toList();
-        System.out.printf("Of those, %,d could not be verified as converging%n", missingNumbers.size());
+        LOGGER.info(String.format("Of those, %,d could not be verified as converging", missingNumbers.size()));
         
         
-        System.out.println("Checking cycles in priority candidates...");
+        LOGGER.info("Checking cycles in priority candidates...");
         Set<Long> priorityCandidates = new HashSet<>();
         priorityCandidates.addAll(specialCandidates);
 priorityCandidates.addAll(notInTree.subList(0, Math.min(notInTree.size(), 1000)));
@@ -92,7 +95,7 @@ priorityCandidates.addAll(notInTree.subList(0, Math.min(notInTree.size(), 1000))
                     cycleResults.add(result);
                 }
             } catch (InterruptedException | ExecutionException e) {
-                System.err.println("Error verifying cycle: " + e.getMessage());
+                LOGGER.severe("Error verifying cycle: " + e.getMessage());
             }
         }
         

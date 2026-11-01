@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import java.util.logging.Logger;
 /**
  * Árbol inverso de Collatz: parte de 1 y genera los predecesores de cada número
  * (2n y, si es posible, (n − 1)/3 cuando es impar) hasta una profundidad y un valor máximos.
@@ -19,6 +20,8 @@ import java.util.concurrent.Future;
  * @author ajuar
  */
 public class InverseCollatzTree {
+    private static final Logger LOGGER = AppLogger.get(InverseCollatzTree.class);
+
 
     private final Set<Long> exploredNumbers;
     private final Queue<TreeNode> searchQueue;
@@ -100,12 +103,12 @@ public class InverseCollatzTree {
                             searchQueue.offer(newNode);
                         }
                     } catch (InterruptedException | ExecutionException e) {
-                        System.err.println("Error generating predecessors: " + e.getMessage());
+                        LOGGER.severe("Error generating predecessors: " + e.getMessage());
                     }
                 }
                 
-                System.out.printf("Depth %d completed. Numbers explored: %,d%n",
-                        currentLevel.get(0).depth(), exploredNumbers.size());
+                LOGGER.info(String.format("Depth %d completed. Numbers explored: %,d",
+                        currentLevel.get(0).depth(), exploredNumbers.size()));
             }
         }
 
