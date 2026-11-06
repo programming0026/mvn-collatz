@@ -8,7 +8,7 @@ package com.juniverse.collatz.dto;
  * @param parent nodo sucesor (hacia el 1)
  * @param operationType "even" si viene de 2n, "odd" si viene de (n − 1)/3, "root" para el 1
  *
- * @author ajuar
+ * @author Java Universe
  */
 public record TreeNode(long value,
         int depth,

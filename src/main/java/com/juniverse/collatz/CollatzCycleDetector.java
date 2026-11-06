@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * Detecta ciclos en la secuencia de Collatz con el algoritmo de la tortuga y la liebre de Floyd.
  *
- * @author ajuar
+ * @author Java Universe
  */
 public class CollatzCycleDetector {
     private static final Logger LOGGER = AppLogger.get(CollatzCycleDetector.class);

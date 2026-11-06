@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * Busca contraejemplos de la conjetura de Collatz combinando candidatos especiales, el árbol inverso
  * y la detección de ciclos con hilos virtuales.
  *
- * @author ajuar
+ * @author Java Universe
  */
 public class CollatzCounterExampleSearcher implements Closeable{
     private static final Logger LOGGER = AppLogger.get(CollatzCounterExampleSearcher.class);

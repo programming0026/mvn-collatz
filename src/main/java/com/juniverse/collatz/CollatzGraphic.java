@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * Ventana con una gráfica (JFreeChart) de la secuencia de Collatz de varios números iniciales.
  *
- * @author ajuar
+ * @author Java Universe
  */
 public class CollatzGraphic extends JFrame {
     private static final Logger LOGGER = AppLogger.get(CollatzGraphic.class);

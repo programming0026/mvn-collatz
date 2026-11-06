@@ -3,7 +3,7 @@ package com.juniverse.collatz;
 /**
  * Punto de entrada: lanza las demostraciones de la conjetura de Collatz.
  *
- * @author linux
+ * @author Java Universe
  */
 public class Main {
 

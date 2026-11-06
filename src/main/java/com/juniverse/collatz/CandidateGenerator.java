@@ -10,7 +10,7 @@ import java.util.Set;
  * Genera números "sospechosos" con los que empezar la búsqueda de contraejemplos de la conjetura de Collatz:
  * formas especiales (2^k·p − 1)/3, patrones binarios y congruencias módulo 8 y 16.
  *
- * @author ajuar
+ * @author Java Universe
  */
 public class CandidateGenerator {
     

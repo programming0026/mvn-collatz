@@ -13,7 +13,7 @@ import java.util.Map;
  * @param statistics estadísticas de la búsqueda
  * @param executionTime tiempo total
  *
- * @author ajuar
+ * @author Java Universe
  */
 public record SearchResult(
         List<CycleResult> cyclesFound,

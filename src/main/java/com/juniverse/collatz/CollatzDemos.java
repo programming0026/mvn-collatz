@@ -15,7 +15,7 @@ import java.util.logging.Level;
 /**
  * Demostraciones: muestra una secuencia, comprueba un rango, busca ciclos y busca contraejemplos.
  *
- * @author linux
+ * @author Java Universe
  */
 public class CollatzDemos {
     private static final Logger LOGGER = AppLogger.get(CollatzDemos.class);

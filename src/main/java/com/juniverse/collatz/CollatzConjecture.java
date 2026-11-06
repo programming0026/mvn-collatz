@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Conjetura de Collatz: partiendo de cualquier entero positivo, si n es par se divide entre 2 y si es impar
  * se calcula 3n + 1; la conjetura afirma que siempre se llega a 1.
  *
- * @author linux
+ * @author Java Universe
  */
 public final class CollatzConjecture {
     private static final Logger LOGGER = AppLogger.get(CollatzConjecture.class);

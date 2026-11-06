@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * Árbol inverso de Collatz: parte de 1 y genera los predecesores de cada número
  * (2n y, si es posible, (n − 1)/3 cuando es impar) hasta una profundidad y un valor máximos.
  *
- * @author ajuar
+ * @author Java Universe
  */
 public class InverseCollatzTree {
     private static final Logger LOGGER = AppLogger.get(InverseCollatzTree.class);

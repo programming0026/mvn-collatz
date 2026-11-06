@@ -11,7 +11,7 @@ import java.util.List;
  * @param iterations iteraciones realizadas
  * @param maxValue mayor valor alcanzado
  *
- * @author ajuar
+ * @author Java Universe
  */
 public record CycleResult(long startNumber,
         List<Long> cycle,
